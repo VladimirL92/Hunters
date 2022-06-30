@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private NoiseController noiseBar;
     private GameManage manager;
 
-    public Vector2Int position
+    public Vector2Int Position
     {
         get { return this.mapPosition; }
     }
@@ -29,19 +29,19 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             velocity=Vector2Int.up;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             velocity=Vector2Int.down;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             velocity=Vector2Int.right;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             velocity=Vector2Int.left;
         }
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Move(Vector2Int target)
     {
-        if (Time.time - lastMoveTime > 1 && velocity != Vector2Int.zero)
+        if (Time.time - lastMoveTime > speedCellPerSecond && velocity != Vector2Int.zero)
         {
             if (!map.IsWall(mapPosition + target))
             {

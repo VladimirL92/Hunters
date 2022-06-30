@@ -193,7 +193,7 @@ public class MapManager : MonoBehaviour
                 var hunter = Instantiate(HunterTemplate, transform);
                 hunter.SetPosition(point);
                 TryFindFreePoint(out var endPoint);
-                hunter.PatrolWay = FindWay(point, endPoint);
+                hunter.WalkWay = FindWay(point, endPoint);
             }
         }
 
@@ -255,7 +255,6 @@ public class MapManager : MonoBehaviour
             foreach (var current in debugWay)
             {
                 var count = current.Value.count;
-                var point = current.Value.point;
                 var p = current.Key;
                 var position = new Vector3(p.x,p.y,0);
                 var style = new GUIStyle { alignment = TextAnchor.MiddleCenter };

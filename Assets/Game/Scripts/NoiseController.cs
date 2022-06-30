@@ -23,18 +23,18 @@ public class NoiseController : MonoBehaviour
     }
     void Update()
     {
-        DownNoise();
         noiseBar.fillAmount = noise;
+        if (noise > 1)
+        {
+            NoiseClip = true;
+        }
+        DownNoise();
     }
     public void PlayerSteep(int SteepInSecond = 1)
     {
         if (noise < 1)
         {
             noise += (upNoiseInSecond / SteepInSecond) / maxLevelNoise;
-        }
-        else
-        {
-            NoiseClip = true;
         }
     }
 

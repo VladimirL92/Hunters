@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class HunterController : MonoBehaviour
 {
-    public Vector2Int[] PatrolWay;
-    private Vector2Int[] attackWay;
+    public Vector2Int[] WalkWay;
     private Vector2Int mapPosition;
     private int waySteep;
     private float lastTime;
-    private bool attack;
     [SerializeField]
     private float speed = 1f;
     private NoiseController noiseBar;
@@ -17,7 +15,6 @@ public class HunterController : MonoBehaviour
     private PlayerController player;
     private SpriteRenderer hunterColor;
     private GameManage manager;
-    private bool alarm;
     private bool detected;
     private Vector2Int velocity;
     private void Start()
@@ -49,13 +46,13 @@ public class HunterController : MonoBehaviour
     }
     void Attack()
     {
-        PatrolWay = map.FindWay(mapPosition, player.position);
+        WalkWay = map.FindWay(mapPosition, player.Position);
         hunterColor.color = Color.red;
-        if (PatrolWay.Length > 1)
+        if (WalkWay.Length > 1)
         {
-            SetPosition(PatrolWay[1]);
+            SetPosition(WalkWay[1]);
         }
-        if ( mapPosition == player.position)
+        if ( mapPosition == player.Position)
         {
             manager.GameOver();
         }
@@ -69,30 +66,30 @@ public class HunterController : MonoBehaviour
     }
     void Patrol()
     {
-        if (PatrolWay.Length == 0)
+        if (WalkWay.Length == 0)
         {
             return;
         }
 
         var steep = waySteep;
-        if (waySteep >= PatrolWay.Length)
+        if (waySteep >= WalkWay.Length)
         {
-            steep = PatrolWay.Length + (PatrolWay.Length - waySteep - 1);
+            steep = WalkWay.Length + (WalkWay.Length - waySteep - 1);
         }
 
-        var pos = PatrolWay[steep];
+        var pos = WalkWay[steep];
 
         SetPosition(pos);
         waySteep++;
 
-        if (waySteep >= PatrolWay.Length * 2)
+        if (waySteep >= WalkWay.Length * 2)
         {
             waySteep = 0;
         }
     }
     private bool PlayerDetect()
     {
-        var pPos = player.position;
+        var pPos = player.Position;
         var hUp = mapPosition + velocity;
         var hRight = hUp + new Vector2Int(velocity.y, velocity.x);
         var hLeft =  hUp + new Vector2Int(velocity.y, velocity.x) * -1;
@@ -127,12 +124,12 @@ public class HunterController : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if (PatrolWay != null && PatrolWay.Length > 0)
+        if (WalkWay != null && WalkWay.Length > 0)
         {
-            var old = PatrolWay[0];
-            for (var i = 1; i < PatrolWay.Length; i++)
+            var old = WalkWay[0];
+            for (var i = 1; i < WalkWay.Length; i++)
             {
-                var current = PatrolWay[i];
+                var current = WalkWay[i];
                 var fP = new Vector3(old.x, old.y, 0);
                 var sP = new Vector3(current.x, current.y, 0);
                 Gizmos.DrawLine(fP, sP);
