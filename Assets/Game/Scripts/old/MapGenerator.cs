@@ -37,6 +37,7 @@ public class MapGenerator : MonoBehaviour
         var x = cellXCount / 2 * sizeCell - (sizeCell / 2);
         var y = cellYCount / 2 * sizeCell - (sizeCell / 2);
         Camera.main.transform.localPosition = new Vector3(x, y, -10);
+
         MapGeneration();
         MainWayGeneration();
         SpawnHunters();
@@ -125,15 +126,9 @@ public class MapGenerator : MonoBehaviour
             way.Add(curent);
             curent = k[curent].point;
         }
-
+        way.Add(end);
         return way.ToArray();
-        //return new[]
-        //{
-        //    start,
-        //    end,
-        //}; 
-    }
-
+    } 
     public bool TryFindFreePoint(out Vector2Int point)
     {
         for (var t = 0; t < 10; t++)
@@ -162,7 +157,6 @@ public class MapGenerator : MonoBehaviour
         point = new Vector2Int();
         return false;
     }
-
     void SpawnHunters()
     {
         for (var i = 0; i < hunterCount; i++)
@@ -218,7 +212,6 @@ public class MapGenerator : MonoBehaviour
                 }
             }
             map[xi, spy] = null;
-
         }
 
         map[startP.x, startP.y] = playerTemplate;
