@@ -2276,7 +2276,7 @@ MonoBehaviour:
   WallTemplate: {fileID: 4737477020695456753, guid: ad65319fd3ef1d84499579677bbe65dc, type: 3}
   StartPoint: {x: 1, y: 1}
   FinishPoint: {x: 10, y: 10}
-  HunterQuantity: 1
+  HunterQuantity: 2
   wallFilling: 4
 --- !u!1 &2024521705
 GameObject:
